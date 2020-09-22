@@ -1,0 +1,14 @@
+trigger Amouopp on Opportunity (after insert, after update) {
+List<Id> oppList = new List<Id>();
+for (Opportunity opp: trigger.new) {
+if (opp.Amount > 20000 && opp.AccountId !=NULL) {
+oppList.add(opp.AccountId);
+}
+}
+List<Account> acct = new List<Account>([Select Id from Account where Id IN:
+                                   oppList ]);
+for(Account a : acct) {
+a.is_gold__c = TRUE;
+update a;
+}
+}
