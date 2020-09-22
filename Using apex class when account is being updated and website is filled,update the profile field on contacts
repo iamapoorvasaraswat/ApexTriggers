@@ -1,0 +1,23 @@
+public class Handler_AccountTrigger {
+    public static void updateaccount(list<Account>acclist){
+        set<id>idlist=new set<id>();
+        list<contact> conlist=new list<contact>();
+        for(account acc:acclist){
+            if(account.website!=null){
+                idlist.add(acc.id);
+            }
+               if(idlist.size()>0)
+            {
+               List<Contact> Contact_List = [select Id,Firstname,Lastname,Profile__c,Accountid,Account.website from contact where Accountid in :idlist];
+                for(Contact con : Contact_List)
+                {
+                    con.Profile__c=account.website+'/'+con.Firstname+con.Lastname;
+                    System.debug('Value of profile field in contact is updated');
+               
+                conlist.add(con);
+            }
+        }
+        update conlist;
+}
+}
+}
