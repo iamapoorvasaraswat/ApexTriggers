@@ -1,0 +1,39 @@
+//Create a contact
+
+trigger createContact on Account (after insert) {
+List<Contact> cntList = new List<Contact>();
+for(Account acct: trigger.new) {
+Contact c = new Contact (LastName='Default', FirstName ='Info', Email= 'info@websitedomain.tld', AccountId= acct.Id );
+cntList.add(c);
+}
+if (!cntList.isEmpty()) {
+insert cntList;
+}
+}
+
+
+//Update Account
+trigger updateAccount on Contact (after insert, after update) {
+List<Id> acct = new List<Id>();
+system.debug('acct Id List: ' + acct);
+for (Contact cnt : trigger.new) {
+acct.add(cnt.AccountId);
+}
+List<Contact> cnt = new List<Contact>([Select Id from Contact where AccountId IN:acct]);
+system.debug('cnt contact List: ' + cnt);
+Integer totlCnts = cnt.Size();
+system.debug('total count of contacts: ' + totlCnts);
+List<Account> acctList = new List<Account>([Select Id from Account where Id IN:acct]);
+system.debug('acctList: ' + acctList);
+if (totlCnts == 1) {
+for (Account act : acctList) {
+act.Only_Default_Contact__c = TRUE;
+update act;
+}
+} else if (totlCnts > 1) {
+for (Account act : acctList) {
+    act.Only_Default_Contact__c = False;
+update act;
+}
+}
+}
