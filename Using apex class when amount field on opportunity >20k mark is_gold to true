@@ -1,0 +1,19 @@
+public class Handler_opportunityTrigger {
+      public static void ammountonopp(list<opportunity>opp)
+      {
+           List<id>idlist=new List<id>();
+          for(opportunity op:opp)
+          {
+              if(op.Amount > 20000 && op.AccountId !=null)
+              {
+                  idlist.add(op.AccountId);
+              }
+          }
+          list<Account>acct=new list <Account>([Select Id from Account where id in:idlist]);
+          for(Account a:acct)
+          {
+              a.is_gold__c=True;
+              update a;
+          }
+      }
+}
