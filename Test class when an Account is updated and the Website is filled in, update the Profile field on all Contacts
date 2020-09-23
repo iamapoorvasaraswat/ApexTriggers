@@ -2,7 +2,7 @@
 public class TestUpdateProfile {
     @isTest
     private static void ProfileUpdate(){
-        Account oldAcc = new Account(Name='Profile',First_Name__c='Apoorva',Last_Name__c='Saraswat');
+        Account oldAcc = new Account(Name='Profile',First_Name='Apoorva',Last_Name='Saraswat');
         insert oldAcc;
         Contact oldCon=new Contact(FirstName='Yashi',LastName='Prabhu',AccountId=oldAcc.Id);
         insert oldCon;
@@ -14,7 +14,7 @@ public class TestUpdateProfile {
     }
     @isTest
     private static void ProfileNotUpdate(){
-        Account newAcc = new Account(Name='Test Account',First_Name__c='Hayat',Last_Name__c='Ahmed');
+        Account newAcc = new Account(Name='Test Account',First_Name='Hayat',Last_Name='Ahmed');
         insert newAcc;
         Contact newCon=new Contact(FirstName='Diya',LastName='Bedi',AccountId=newAcc.Id);
         insert newCon;
