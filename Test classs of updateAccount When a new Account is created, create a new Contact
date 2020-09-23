@@ -2,12 +2,12 @@
 public class UpdateAccountTest{
     @isTest private static void TestContactTrue()
     {
-        Account oldAcc=new Account(Name='Riya',First_Name__c='Appu',Last_Name__c='sara');
+        Account oldAcc=new Account(Name='Riya',First_Name='Appu',Last_Name='sara');
         insert oldAcc;
     }
     @isTest private static void TestContactFalse()
     {
-        Account newAcc=new Account(Name='Rina',First_Name__c='Rohan',Last_Name__c='vyas');
+        Account newAcc=new Account(Name='Rina',First_Name='Rohan',Last_Name='vyas');
         insert newAcc;
         Contact Con=new Contact(FirstName='Bala',LastName='Kumar',AccountId=newAcc.Id);
         insert Con;
