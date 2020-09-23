@@ -2,7 +2,7 @@
 public class TestContactclass {
     @isTest private static void CreateTestContact()
     {
-        Account Acc=new Account(Name='Riya',First_Name__c='Apoorva',Last_Name__c='Saraswat');
+        Account Acc=new Account(Name='Riya',First_Name='Apoorva',Last_Name='Saraswat');
         insert Acc;
     }
 }
